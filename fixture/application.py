@@ -1,5 +1,6 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 
 
 class Application:
@@ -10,7 +11,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://17.218.71.53/addressbook/")
+        wd.get('http://17.218.71.53/addressbook/')
 
     def login(self, username, password):
         wd = self.wd
