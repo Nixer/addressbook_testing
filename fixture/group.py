@@ -13,7 +13,7 @@ class GroupHelper:
         self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
-        self.fill_group_form(group, wd)
+        self.fill_group_form(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
@@ -26,7 +26,6 @@ class GroupHelper:
             wd.find_element_by_name(field_name).send_keys(text)
 
     def fill_group_form(self, group):
-        wd = self.app.wd
         self.change_field_value("group_name", group.name)
         self.change_field_value("group_header", group.header)
         self.change_field_value("group_footer", group.footer)
@@ -38,7 +37,7 @@ class GroupHelper:
     def delete_first_group(self):
         wd = self.app.wd
         self.open_groups_page()
-        self.select_first_group(wd)
+        self.select_first_group()
         # submit deletion
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
