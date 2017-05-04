@@ -1,14 +1,13 @@
-from random import randrange
 from model.group import Group
+import random
 
-
-def test_delete_some_group(app):
-    if app.group.count() == 0:
+def test_delete_some_group(app, db):
+    if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
-    oldgroups = app.group.get_group_list()
-    index = randrange(len(oldgroups))
-    app.group.delete_group_by_index(index)
-    newgroups = app. group.get_group_list()
+    oldgroups = db.get_group_list()
+    group = random.choice(oldgroups)
+    app.group.delete_group_by_id(group.id)
+    newgroups = db.get_group_list()
     assert len(oldgroups) - 1 == len(newgroups)
-    oldgroups[index:index + 1] = []
+    oldgroups.remove(group)
     assert oldgroups == newgroups
