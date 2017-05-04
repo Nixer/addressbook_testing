@@ -11,3 +11,5 @@ def test_delete_some_group(app, db):
     assert len(oldgroups) - 1 == len(newgroups)
     oldgroups.remove(group)
     assert oldgroups == newgroups
+    if check_ui:
+        assert sorted(newgroups, key=Group.id_or_max()) == sorted(app.group.get_group_list(), key=Group.id_or_max())
