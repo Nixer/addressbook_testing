@@ -1,13 +1,10 @@
 import pymysql
 import pymysql.cursors
 from model.group import Group
+from fixture.db import DBfixture
 
-connection = pymysql.connect(host="17.218.71.53",
-                             user="root",
-                             password="",
-                             db="addressbook",
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+db = DBfixture(host="17.218.71.53", user="root", password="", name="addressbook")
+
 # try:
 #     cursor = connection.cursor()
 #     cursor.execute("SELECT * FROM group_list")
@@ -16,15 +13,10 @@ connection = pymysql.connect(host="17.218.71.53",
 # finally:
 #     connection.close()
 
-list = []
-cursor = connection.cursor()
 try:
-    cursor.execute("SELECT group_id, group_name, group_header, group_footer FROM group_list")
-    for row in cursor:
-        print(row)
-        (id, name, header, footer) = (row["group_id"], row["group_name"], row["group_header"], row["group_footer"])
-        print(id, name, header, footer)
-        list.append(Group(name=name, header=header, footer=footer, id=str(id)))
+    contacts = db.get_contact_list()
+    for contact in contacts:
+        print(contact)
+    print(len(contacts))
 finally:
-    cursor.close()
-print(list)
+    db.destroy()
