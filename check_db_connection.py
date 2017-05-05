@@ -1,9 +1,9 @@
 import pymysql
 import pymysql.cursors
 from model.group import Group
-from fixture.db import DBfixture
+from fixture.orm import ORMFixture
 
-db = DBfixture(host="17.218.71.53", user="root", password="", name="addressbook")
+db = ORMFixture(host="17.218.71.53", user="root", password="", name="addressbook")
 
 # try:
 #     cursor = connection.cursor()
@@ -14,9 +14,9 @@ db = DBfixture(host="17.218.71.53", user="root", password="", name="addressbook"
 #     connection.close()
 
 try:
-    contacts = db.get_contact_list()
-    for contact in contacts:
-        print(contact)
-    print(len(contacts))
+    l = db.get_contact_list()
+    for item in l:
+        print(item)
+    print(len(l))
 finally:
-    db.destroy()
+    pass
